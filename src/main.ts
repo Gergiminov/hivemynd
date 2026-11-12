@@ -471,7 +471,6 @@ export default class PlexusPlugin extends Plugin {
         return true;
       },
     });
-    this.addCommand({ id: 'demo', name: 'Demo agent activity', callback: () => this.demo() });
     this.addCommand({ id: 'toggle-permissions', name: 'Turn agent permissions on or off', callback: async () => {
       this.settings.enforcePermissions = !this.settings.enforcePermissions;
       await this.saveSettings();
@@ -2414,22 +2413,6 @@ export default class PlexusPlugin extends Plugin {
     for (const v of this.views()) v.renderer?.setHeat(heat, decay, true);
   }
 
-  demo() {
-    const g = this.getGraph();
-    const linked = [...new Set(g.links.flat())];
-    if (!linked.length) return;
-    const pick = () => g.paths[linked[(Math.random() * linked.length) | 0]];
-    const steps: PulseEvent[] = [
-      { agent: 'claude', kind: 'scan', texts: Array.from({ length: 30 }, pick) },
-      { agent: 'claude', kind: 'read', texts: [pick()] },
-      { agent: 'claude', kind: 'read', texts: [pick()] },
-      { agent: 'codex', kind: 'read', texts: [pick()] },
-      { agent: 'claude', kind: 'read', texts: [pick()] },
-      { agent: 'codex', kind: 'write', texts: [pick()] },
-    ];
-    steps.forEach((ev, i) => window.setTimeout(() => this.pulse({ ...ev, source: 'demo' }), 400 + i * 1600));
-  }
-
   // ------------------------------------------------------------ settings
 
   /** Path other local tools (bridge, hooks) read the key from. */
@@ -2721,7 +2704,6 @@ class PlexusView extends ItemView {
     const bar = el.createDiv({ cls: 'plexus-toolbar' });
     this.fsButton = this.button(bar, 'maximize', 'Full screen (F)', () => this.toggleFullscreen());
     this.button(bar, 'locate-fixed', 'Recenter (double-click)', () => this.renderer?.recenter());
-    this.button(bar, 'zap', 'Demo agent activity', () => this.plugin.demo());
     this.button(bar, 'flame', 'Heat & decay view (H)', () => void this.plugin.toggleHeat());
     this.button(bar, 'history', 'Replay agent activity (R)', () => this.toggleReplayBar());
     this.button(bar, 'sprout', 'Vault growth time-lapse (G)', () => this.toggleGrowth());
