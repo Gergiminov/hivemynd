@@ -1437,6 +1437,7 @@ body.plexus-light-window .view-header { border-bottom: 1px solid rgba(15, 37, 64
   background: rgba(3, 10, 12, .78); border: 1px solid rgba(47, 211, 201, .25);
   font: 12px/1.4 var(--font-interface); color: #e4f8f6;
 }
+.pxo-panel:has(.pxo-legend-title) { display: none !important; }
 .pxo-legend-title { font-weight: 600; letter-spacing: .08em; text-transform: uppercase; font-size: 11px; color: #2fd3c9; margin-bottom: 6px; }
 .pxo-legend-bar { height: 8px; border-radius: 4px; background: linear-gradient(90deg, #0a2b2c 0%, #1b6f6a 35%, #2fd3c9 55%, #ffd27a 100%); }
 .pxo-legend-ends { display: flex; justify-content: space-between; margin-top: 4px; color: #8fb3b0; font-size: 11px; }
