@@ -321,7 +321,7 @@ export default class PlexusPlugin extends Plugin {
   /** Two agents editing (or editing what another just read) the same note. Newest last. */
   alerts: Collision[] = [];
   private alertListeners = new Set<(c: Collision) => void>();
-  heatOn = false;
+  heatOn = true;
   private heatTimer: number | null = null;
   changes!: ChangeStore;
   // Note text captured just before an agent's write (from PreToolUse hooks), by path.
